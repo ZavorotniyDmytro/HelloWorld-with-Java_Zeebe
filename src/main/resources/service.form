@@ -1,0 +1,31 @@
+{
+  "components": [
+    {
+      "label": "Message",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1rorowv",
+        "columns": null
+      },
+      "id": "Field_06u6i23",
+      "key": "text_field",
+      "description": "Message to be displayed",
+      "defaultValue": "Hello World!",
+      "disabled": false,
+      "validate": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 30
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0azbrlz",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.11.0"
+  },
+  "schemaVersion": 8
+}
