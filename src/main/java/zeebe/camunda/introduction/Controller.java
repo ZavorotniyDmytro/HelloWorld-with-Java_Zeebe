@@ -10,9 +10,10 @@ public class Controller {
     @Autowired
     ZeebeClient client;
 
-    @GetMapping
+    @GetMapping("/")
     public String onBroad(){
         client.newActivateJobsCommand().jobType("handling_message");
+        System.out.println("Success");
         return "Success";
     }
 }
