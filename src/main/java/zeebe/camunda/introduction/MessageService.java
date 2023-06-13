@@ -10,7 +10,8 @@ import static java.lang.System.out;
 public class MessageService {
 
     @JobWorker(type = "handling_message")
-    public void logMessage(@Variable String field_0ph9y6o){
-        out.println(field_0ph9y6o);
+    public void logMessage(@Variable String text_field){
+        out.println(text_field);
     }
+
 }

@@ -20,7 +20,7 @@
     }
   ],
   "type": "default",
-  "id": "Form_0azbrlz",
+  "id": "MessageForm",
   "executionPlatform": "Camunda Cloud",
   "executionPlatformVersion": "8.2.0",
   "exporter": {
