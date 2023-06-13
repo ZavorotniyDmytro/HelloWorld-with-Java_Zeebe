@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @SpringBootApplication
-@Deployment(resources = "classpath:message-bpmn-diagram.bpmn")
+//@Deployment(resources = "classpath:message-bpmn-diagram.bpmn")
 public class Main {
 
     static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -32,6 +32,8 @@ public class Main {
 
         try (final ZeebeClient client = clientBuilder.build()) {
 
+            // Deploy process
+
             final DeploymentEvent deploymentEvent =
                     client.newDeployResourceCommand()
                             .addResourceFromClasspath("message-bpmn-diagram.bpmn")
@@ -41,7 +43,16 @@ public class Main {
             System.out.println("Deployment created with key: " + deploymentEvent.getKey());
             System.out.println("Deployment created with Processes: " + deploymentEvent.getProcesses());
 
-            // client.newCreateInstanceCommand().bpmnProcessId()
+            var instance = client.newCreateInstanceCommand()
+                    .bpmnProcessId("MessageHandler")
+                    .latestVersion()
+                    .send()
+                    .join();
+
+            System.out.println("Instance created with ProcessId: " + instance.getBpmnProcessId());
+            System.out.println("Instance created with ProcessDefinitionKey: " + instance.getProcessDefinitionKey());
+            System.out.println("Instance created with ProcessInstanceKey: " + instance.getProcessInstanceKey());
+
         }
     }
 }
