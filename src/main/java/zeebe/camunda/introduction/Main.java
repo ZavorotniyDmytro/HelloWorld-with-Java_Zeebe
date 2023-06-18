@@ -2,20 +2,29 @@ package zeebe.camunda.introduction;
 
 import io.camunda.zeebe.client.ZeebeClient;
 import io.camunda.zeebe.client.ZeebeClientBuilder;
+import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.response.DeploymentEvent;
+import io.camunda.zeebe.client.api.response.ProcessInstanceEvent;
+import io.camunda.zeebe.spring.client.annotation.JobWorker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import io.camunda.zeebe.spring.client.annotation.Deployment;
+import org.springframework.scheduling.annotation.EnableScheduling;
+
+import java.util.Map;
+import java.util.UUID;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @SpringBootApplication
+@EnableScheduling
 //@Deployment(resources = "classpath:message-bpmn-diagram.bpmn")
 public class Main {
 
     static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     static ConsoleHandler handler = new ConsoleHandler();
+    static ZeebeClient zeebeClient = null;
+
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(Main.class);
         app.run(args);
@@ -32,27 +41,34 @@ public class Main {
 
         try (final ZeebeClient client = clientBuilder.build()) {
 
-            // Deploy process
-
-            final DeploymentEvent deploymentEvent =
-                    client.newDeployResourceCommand()
-                            .addResourceFromClasspath("message-bpmn-diagram.bpmn")
-                            .send()
-                            .join();
+            zeebeClient = client;
+            final DeploymentEvent deploymentEvent = deployDiagram(client);
 
             System.out.println("Deployment created with key: " + deploymentEvent.getKey());
             System.out.println("Deployment created with Processes: " + deploymentEvent.getProcesses());
 
-            var instance = client.newCreateInstanceCommand()
-                    .bpmnProcessId("MessageHandler")
-                    .latestVersion()
-                    .send()
-                    .join();
-
-            System.out.println("Instance created with ProcessId: " + instance.getBpmnProcessId());
-            System.out.println("Instance created with ProcessDefinitionKey: " + instance.getProcessDefinitionKey());
-            System.out.println("Instance created with ProcessInstanceKey: " + instance.getProcessInstanceKey());
+//            ProcessInstanceEvent instance = createInstance(client);
+//
+//            System.out.println("Instance created with ProcessId: " + instance.getBpmnProcessId());
+//            System.out.println("Instance created with ProcessDefinitionKey: " + instance.getProcessDefinitionKey());
+//            System.out.println("Instance created with ProcessInstanceKey: " + instance.getProcessInstanceKey());
 
         }
     }
+
+    static DeploymentEvent deployDiagram(ZeebeClient client){
+        return client.newDeployResourceCommand()
+                .addResourceFromClasspath("message-bpmn-diagram-v2.bpmn")
+                .send()
+                .join();
+    }
+
+    static ProcessInstanceEvent createInstance(ZeebeClient client){
+        return client.newCreateInstanceCommand()
+                .bpmnProcessId("MessageHandler")
+                .latestVersion()
+                .send()
+                .join();
+    }
+
 }
