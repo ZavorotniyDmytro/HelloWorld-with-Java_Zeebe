@@ -1,0 +1,12 @@
+<connector xmlns="http://docs.camunda.org/schema/connector/8.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://docs.camunda.org/schema/connector/8.0 http://docs.camunda.org/schema/connector/8.0/connector.xsd">
+
+    <name>FS-connector</name>
+    <version>0.1.0-SNAPSHOT</version>
+
+    <configuration>
+        <property name="url">http://localhost:3000/api/file/</property>
+    </configuration>
+
+</connector>
