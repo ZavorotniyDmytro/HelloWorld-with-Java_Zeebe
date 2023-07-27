@@ -50,14 +50,14 @@ public class Main {
 
     static DeploymentEvent deployDiagram(ZeebeClient client){
         return client.newDeployResourceCommand()
-                .addResourceFromClasspath("using-fs-connector.bpmn")
+                .addResourceFromClasspath("using-fs-connector-full-operations.bpmn")
                 .send()
                 .join();
     }
 
     static ProcessInstanceEvent createInstance(ZeebeClient client){
         return client.newCreateInstanceCommand()
-                .bpmnProcessId("FS-connector")
+                .bpmnProcessId("FS-connector-full")
                 .latestVersion()
                 .send()
                 .join();
