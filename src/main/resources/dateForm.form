@@ -1,0 +1,25 @@
+{
+  "components": [
+    {
+      "subtype": "date",
+      "dateLabel": "Date",
+      "label": "Date time",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_1ehrcnd",
+        "columns": null
+      },
+      "id": "Field_0878r3q",
+      "key": "current_date"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0ntfgtm",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.2.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.13.0"
+  },
+  "schemaVersion": 9
+}

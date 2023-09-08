@@ -26,12 +26,6 @@
 			<artifactId>micrometer-registry-prometheus</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>com.codot.camundaconnectors.filestorage</groupId>
-			<artifactId>fs-connector</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-		</dependency>
-
 	</dependencies>
 
 
